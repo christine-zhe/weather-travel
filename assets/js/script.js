@@ -42,22 +42,24 @@ var setCity = (city) => {
       localStorage.setItem("City" + localStorage.length, city);
 
 }
-
+// WHEN I click on a city in the search history
+// THEN I am again presented with current and future conditions for that city
 
 var previousCities = () => {
-      var lastCity = "";
+      var previous = "";
       var currentCity = "";
-     
-      let lastCityKey="City"+(localStorage.length-1);
+      let previousCity="City"+(localStorage.length-1);
 
-      lastCity=localStorage.getItem(lastCityKey);
-      console.log(lastCity);
+      previous=localStorage.getItem(previousCity);
 
-      $('#search-city').attr("value", lastCity);
+
+      $('#search-city').attr("value", previous);
 
       for (let i = 0; i < localStorage.length; i++) {
+        let previousOnes = localStorage.getItem("City" + i)
 
-          $("#city-results").addClass("btn btn-secondary col-12 p-1 m-1");
+        var allCities = $("<button type='button' class='btn btn-secondary col-12 p-1 m-1' id ='city-results'>"+previousOnes+"</button>"); 
+        $("#list").append(allCities);
       }
 
 
@@ -71,20 +73,52 @@ var cityMainInfo = (response) => {
   $("#cityForecast").text(city);
 
   var temperature = response.main.temp;
-  // var weatherList = document.createElement("li");
-  // weatherList.innerHTML = temperature;
+  var windSpeed = response.wind.speed;
+  var humidity = response.main.humidity;
 
-  $("#temperature").text(temperature);
-  console.log(temperature)
+  $("#temperature").text( temperature + " F");
+  $("#humidity").text(humidity + "%");
+  $("#wind").text(windSpeed + " mph");
+  
+  var latitude = response.coord.lat;
+  var longitude =response.coord.lon;
+  var url = "http://api.openweathermap.org/data/2.5/onecall?lat=" +latitude + "&lon=" +longitude +"&appid=5d8a972b9aa6341eaa73ce2f2fcf070e&units=imperial";
 
-}
+  fetch(url)
+  .then((response) => 
+response.json())
+
+  .then(async (response) => {
+    console.log(response);
+ 
 
 // WHEN I view the UV index
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
+//Green is favorable
+//Yellow is moderate
+//Red is severe
+  let uvResponse = response.current.uvi
+  console.log(uvResponse)
+  $("#uvi").text("UV Index:" + uvResponse);
+
+  if (uvResponse >= 0 && uvResponse <= 3) {
+      $("#uvi").css("background-color","green");
+  } else if (uvResponse > 3 && uvResponse <= 8) {
+      $("#uvi").attr("background-color", "yellow");
+  } else if (uvResponse > 8) {
+      $("#uvi").attr("background-color", "red");
+  }
+
+})
+
+
+
+
+}
+
+
 
 // WHEN I view future weather conditions for that city
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 
 
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city

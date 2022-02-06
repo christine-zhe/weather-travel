@@ -20,11 +20,11 @@
         <label for="citySearch" class="form-label">Search for a City:</label>
     </br>
        
-        <input class="form-control" id="citySearch"></input>
+        <input class="form-control" id="citySearch" text="Los Angeles"></input>
         <button type="button" class="btn btn-primary col-12" onclick="searchCity()">Search</button>
 <hr class="style1">
-
-<button type="button" class="btn btn-secondary col-12 p-1 m-1">Austin</button>
+<div id = "list">
+<!-- <button type="button" class="btn btn-secondary col-12 p-1 m-1">Austin</button>
 </br>
 <button type="button" class="btn btn-secondary col-12 p-1 m-1" id ="city-results">Chicago</button>
 <button type="button" class="btn btn-secondary col-12 p-1 m-1">New York</button>
@@ -32,14 +32,21 @@
 <button type="button" class="btn btn-secondary col-12 p-1 m-1">San Francisco</button>
 <button type="button" class="btn btn-secondary col-12 p-1 m-1">Seattle</button>
 <button type="button" class="btn btn-secondary col-12 p-1 m-1">Denver</button>
-<button type="button" class="btn btn-secondary col-12 p-1 m-1">Atlanta</button>
-
+<button type="button" class="btn btn-secondary col-12 p-1 m-1">Atlanta</button> -->
+</div>
 </div>
       <div class ="mb-3 col">
-          <div class ="container border border-dark"><h1 id="cityForecast"></h1>
+          <div class ="container border border-dark"><h1 id="cityForecast">City</h1>
             <h2 id="date"></h2>
-            <ul id = "temperature">
+            <ul>
+                <li>Temperature: <p id ="temperature"></p></li>
+                <li>Humidity: <p id="humidity"></p></li>
+                <li>Wind: <p id="wind"></p></li>
+                <li id ="uvi"></li>
+
             </ul>
+ 
+
         </div>
           <h2>5-Day Forecast:</h2>
           <div class = "row"></div>
