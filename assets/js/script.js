@@ -118,7 +118,7 @@ response.json())
     var weekday = new Date(days.dt * 1000).toLocaleDateString("en", { weekday: "long" });
     var date = new Date(days.dt * 1000).toLocaleString().split(',')[0];
     var iconURL = ("https://openweathermap.org/img/w/" + days.weather[0].icon + ".png");
-    eachDay += (`
+    eachDay = eachDay + (`
     <div class="col">
     <ul class="card list-unstyled">
         <li>${weekday}</li>
