@@ -16,7 +16,7 @@ function searchCity(){
   //     console.log(response);
   //   saveCity(city);
   // });
-  let city = $('#citySearch').val();
+  var city = $('#citySearch').val();
 
   fetch("https://api.openweathermap.org/data/2.5/weather?q=" + document.querySelector("#citySearch").value +"&appid=5d8a972b9aa6341eaa73ce2f2fcf070e&units=imperial", {
   "method": "GET",
@@ -39,30 +39,25 @@ response.json())
 // THEN I am presented with current and future conditions for that city and that city is added to the search history
 var setCity = (city) => {
 
+
+
       localStorage.setItem("City" + localStorage.length, city);
+
 
 }
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
-var previousCities = () => {
-      var previous = "";
-      var currentCity = "";
-      let previousCity="City"+(localStorage.length-1);
-
-      previous=localStorage.getItem(previousCity);
-
-
-      $('#search-city').attr("value", previous);
+function previousCities()  {
 
       for (let i = 0; i < localStorage.length; i++) {
         let previousOnes = localStorage.getItem("City" + i)
+       
+               var allCities = $("<button type='button' class='btn btn-secondary col-12 p-1 m-1' id ='city-results'>"+previousOnes+"</button>");
+            $("#list").append(allCities);
 
-        var allCities = $("<button type='button' class='btn btn-secondary col-12 p-1 m-1' id ='city-results'>"+previousOnes+"</button>"); 
-        $("#list").append(allCities);
+
       }
-
-
   }
   
 
@@ -76,10 +71,12 @@ var cityMainInfo = (response) => {
   var windSpeed = response.wind.speed;
   var humidity = response.main.humidity;
 
+
   $("#temperature").text( temperature + " F");
   $("#humidity").text(humidity + "%");
   $("#wind").text(windSpeed + " mph");
   
+
   var latitude = response.coord.lat;
   var longitude =response.coord.lon;
   var url = "http://api.openweathermap.org/data/2.5/onecall?lat=" +latitude + "&lon=" +longitude +"&appid=5d8a972b9aa6341eaa73ce2f2fcf070e&units=imperial";
@@ -109,16 +106,43 @@ response.json())
       $("#uvi").attr("background-color", "red");
   }
 
+  var icon = ("https://openweathermap.org/img/w/" + response.current.weather[0].icon + ".png")
+  $("#icon").attr("src", icon);
+  
+  var eachDay = (`<div class="flex-wrap">`);
+  
+
+  for (let i = 1; i < 6; i++) {
+    
+    var days = response.daily[i];
+    var weekday = new Date(days.dt * 1000).toLocaleDateString("en", { weekday: "long" });
+    var date = new Date(days.dt * 1000).toLocaleString().split(',')[0];
+    var iconURL = ("https://openweathermap.org/img/w/" + days.weather[0].icon + ".png");
+    eachDay += (`
+    <div class="col">
+    <ul class="card list-unstyled">
+        <li>${weekday}</li>
+        <li>${date}</li>
+        <li><img src="${iconURL}"></li>
+        <li>Temperature of the Day: ${days.temp.day} F</li>
+        <li>Wind: ${days.wind_speed} mph</li>
+        <li>Humidity: ${days.humidity}%</li>
+    </ul>
+    </div>`)
+                    }
+                    $("#futureForecast").html(eachDay) 
 })
-
-
 
 
 }
 
 
-
 // WHEN I view future weather conditions for that city
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 
+$("#list").on("click", (event) => {
+  event.preventDefault()
+  $("#citySearch").val(event.target.textContent)
+  searchCity(event)
+})
 

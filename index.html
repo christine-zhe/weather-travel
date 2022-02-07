@@ -23,6 +23,7 @@
         <input class="form-control" id="citySearch" text="Los Angeles"></input>
         <button type="button" class="btn btn-primary col-12" onclick="searchCity()">Search</button>
 <hr class="style1">
+<!-- Listing Below of previous Cities -->
 <div id = "list">
 <!-- <button type="button" class="btn btn-secondary col-12 p-1 m-1">Austin</button>
 </br>
@@ -38,24 +39,32 @@
       <div class ="mb-3 col">
           <div class ="container border border-dark"><h1 id="cityForecast">City</h1>
             <h2 id="date"></h2>
-            <ul>
+            <ul class ="list-unstyled">
                 <li>Temperature: <p id ="temperature"></p></li>
                 <li>Humidity: <p id="humidity"></p></li>
                 <li>Wind: <p id="wind"></p></li>
                 <li id ="uvi"></li>
+                <li>Icon:<img id="icon" ></li>
 
             </ul>
  
 
         </div>
+        <!-- Forecast for the next 5 days -->
           <h2>5-Day Forecast:</h2>
-          <div class = "row"></div>
+          <div class ="container">
+              
+          <div class = "row" id = "futureForecast">
+          
+
+          </div>
       </div>
       
+    </div>
       </div>
     </div>
 
-    <!-- Links to Jquery -->
+    <!-- Links to jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
