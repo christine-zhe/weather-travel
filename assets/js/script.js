@@ -79,7 +79,7 @@ var cityMainInfo = (response) => {
 
   var latitude = response.coord.lat;
   var longitude =response.coord.lon;
-  var url = "http://api.openweathermap.org/data/2.5/onecall?lat=" +latitude + "&lon=" +longitude +"&appid=5d8a972b9aa6341eaa73ce2f2fcf070e&units=imperial";
+  var url = "https://api.openweathermap.org/data/2.5/onecall?lat=" +latitude + "&lon=" +longitude +"&appid=5d8a972b9aa6341eaa73ce2f2fcf070e&units=imperial";
 
   fetch(url)
   .then((response) => 
